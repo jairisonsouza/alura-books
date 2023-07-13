@@ -24,24 +24,45 @@ const Subtitulo = styled.h3`
         font-weight: 500;
         margin-bottom: 40px;
 `
+const Resultado = styled.div`
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 20px;
+   cursor: pointer;
+   p {
+       width: 200px;
+   }
+   img {
+       width: 100px;
+   }
+   &:hover {
+       border: 1px solid white;
+   }
+`
+
 
 function Pesquisa () {
 const [LivrosPesquisados, setLivrosPesquisados] = useState([])
-
-console.log (LivrosPesquisados)
 
     return (
         <PesquisaContainer>
         <Titulo>Já sabe por onde começar?</Titulo>
         <Subtitulo>Encontre seu livro em nossa estante.</Subtitulo>
         <Input
-            placeholder="escreva sua próxima leitura"
+            placeholder="Pesquise sua próxima leitura"
             onBlur={evento => {
                 const textoDigitado = evento.target.value
                 const resultadoPesquisa = livros.filter(livro => livro.nome.includes(textoDigitado))
                 setLivrosPesquisados(resultadoPesquisa)
             }}
         />
+        { LivrosPesquisados.map( livro => (
+            <Resultado>
+                <img src={livro.src} alt="Imagem Livro"/>
+                <p>{livro.nome}</p>
+            </Resultado>
+        ) ) }
         </PesquisaContainer>
     )
 }
